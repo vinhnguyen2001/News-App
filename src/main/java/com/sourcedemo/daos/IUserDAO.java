@@ -8,7 +8,9 @@ public interface IUserDAO extends GenericDAO<UserModel> {
 
   UserModel findByUserId(Long userId);
 
-    public Long insert(UserModel newUser);
+  public Long insert(UserModel newUser);
 
-    public void update(UserModel updatingUser);
+  public void update(UserModel updatingUser);
+
+  UserModel findByUserNameAndPasswordAndStatus(String userName, String password, Integer status);
 }

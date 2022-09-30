@@ -15,7 +15,7 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String DB_URL = "jdbc:mysql://localhost:3306/demo";
+            String DB_URL = "jdbc:mysql://localhost:3306/newservlet";
             String USER_NAME = "root";
             String PASSWORD = "123456";
             return DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
@@ -89,7 +89,8 @@ public class AbstractDAO<T> implements GenericDAO<T> {
                     resultSet.close();
                 }
             } catch (SQLException e) {
-                return null;
+
+                e.printStackTrace();
             }
         }
     }
@@ -147,9 +148,44 @@ public class AbstractDAO<T> implements GenericDAO<T> {
 
             } catch (SQLException e) {
                 e.printStackTrace();
-                return null;
+
             }
         }
+    }
+
+    @Override
+    public int count(String sql, Object... parameters) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            int count = 0;
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            setParameters(statement, parameters);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            return count;
+        } catch (SQLException e) {
+            return 0;
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+            } catch (SQLException e) {
+                return 0;
+            }
+        }
+
     }
 
     @Override

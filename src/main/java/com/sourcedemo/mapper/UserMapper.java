@@ -1,6 +1,7 @@
 package com.sourcedemo.mapper;
 
 
+import com.sourcedemo.models.RoleModel;
 import com.sourcedemo.models.UserModel;
 
 import java.sql.ResultSet;
@@ -8,23 +9,27 @@ import java.sql.SQLException;
 
 public class UserMapper implements RowMapper<UserModel> {
 
-
     @Override
-    public UserModel mapRow(ResultSet rs) {
-
+    public UserModel mapRow(ResultSet resultSet) {
         try {
             UserModel user = new UserModel();
-            user.setId(rs.getLong("id"));
-            user.setUserName(rs.getString("username"));
-            user.setPassword(rs.getString("password"));
-            user.setFullName(rs.getString("fullname"));
-            user.setRoleId(rs.getLong("roleid"));
-            user.setStatus(rs.getInt("status"));
+            user.setId(resultSet.getLong("id"));
+            user.setUserName(resultSet.getString("username"));
+            user.setFullName(resultSet.getString("fullname"));
+            user.setPassword(resultSet.getString("password"));
+            user.setStatus(resultSet.getInt("status"));
+            try {
+                RoleModel role = new RoleModel();
+                role.setCode(resultSet.getString("code"));
+                role.setName(resultSet.getString("name"));
+                user.setRole(role);
+            } catch (Exception e) {
+                System.out.print(e.getMessage());
+            }
             return user;
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-
+            return null;
         }
     }
+
 }
