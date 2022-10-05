@@ -6,13 +6,14 @@ import java.io.IOException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class HttpUtil {
-	
+
 	private String value;
 	
 	public HttpUtil (String value) {
 		this.value = value;
 	}
-	
+
+//	convert string to the corresponding object
 	public <T> T toModel(Class<T> tClass) {
 		try {
 			return new ObjectMapper().readValue(value, tClass);
@@ -21,7 +22,9 @@ public class HttpUtil {
 		}
 		return null;
 	}
-	
+
+
+	// convert parameters from API to string
 	public static HttpUtil of (BufferedReader reader) {
 		StringBuilder sb = new StringBuilder();
 		try {

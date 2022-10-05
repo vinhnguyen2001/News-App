@@ -6,8 +6,6 @@ public interface IUserService {
 
     UserModel findByUserId(Long userId);
 
-    public UserModel save(UserModel newUser);
-
-    public  UserModel update(UserModel updatingUser);
+    public UserModel findByUserNameAndPasswordAndStatus(String userName, String password, Integer status);
 
 }

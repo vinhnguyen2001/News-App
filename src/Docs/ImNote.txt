@@ -1,0 +1,23 @@
+mvn clean install: cấu hình file war tạo môi trường
+Tim Hieu JSTL
+https://www.tutorialspoint.com/jsp/jstl_core_if_tag.htm
+expression language
+Java JDBC
+https://www.javatpoint.com/java-jdbc
+Dependence version java
+Solid java
+sping data jpa hibernate JPA ORM
+Access modifier
+
+Best practice JDBC https://javarevisited.blogspot.com/2012/08/top-10-jdbc-best-practices-for-java.html#axzz7cEje3Efc
+Java generic type
+Servlet weld : https://zetcode.com/articles/javaservletweld/
+
+Restful API best practice 
+https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/
+
+Muốn cài đặt chức năng filter url thì dùng:
+servlet - filter.
+
+ObjectMapper
+BeanUtils.

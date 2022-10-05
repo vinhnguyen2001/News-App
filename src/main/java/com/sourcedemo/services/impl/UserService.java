@@ -12,27 +12,16 @@ public class UserService implements IUserService {
 
     @Inject
     private IUserDAO userDAO;
-    private UserDAO user = new UserDAO();
+//    private UserDAO user = new UserDAO();
     @Override
     public UserModel findByUserId(Long userId) {
        return  userDAO.findByUserId(userId);
     }
 
-    @Override
-    public UserModel save(UserModel newUser) {
 
-        Long newUserId = userDAO.insert(newUser);
-
-        return userDAO.findByUserId(newUserId);
-    }
 
     @Override
-    public  UserModel update(UserModel updatingUser) {
-
-        Long oldUserId = updatingUser.getId();
-        userDAO.update(updatingUser);
-
-        return userDAO.findByUserId(oldUserId);
-
+    public UserModel findByUserNameAndPasswordAndStatus(String userName, String password, Integer status) {
+        return userDAO.findByUserNameAndPasswordAndStatus(userName,password, status);
     }
 }

@@ -1,7 +1,10 @@
 package com.sourcedemo.controllers.web;
 
+import com.sourcedemo.models.UserModel;
 import com.sourcedemo.services.ICategoryService;
 import com.sourcedemo.services.IUserService;
+import com.sourcedemo.utils.FormUtil;
+import com.sourcedemo.utils.SessionUtil;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -11,8 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ResourceBundle;
 
-@WebServlet(urlPatterns = {"/home","/auth","/thoat"})
+@WebServlet(urlPatterns = {"/home","/auth"})
 public class HomeController extends HttpServlet {
 	
 	@Inject
@@ -23,18 +27,26 @@ public class HomeController extends HttpServlet {
 	
 	private static final long serialVersionUID = 2686801510274002166L;
 
-//	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String action = request.getParameter("action");
 
 		if(action != null && action.equals("login")){
+			String message = request.getParameter("message");
+			String alert = request.getParameter("alert");
+
+			if(message != null && alert != null){
+				request.setAttribute("message", resourceBundle.getString(message));
+				request.setAttribute("alert", alert);
+			}
 			RequestDispatcher rd = request.getRequestDispatcher("/views/login.jsp");
 			rd.forward(request, response);
 		}
 		else if(action != null && action.equals("logout")){
-
+			SessionUtil.getInstance().removeValue(request, "USERMODEL");
+			response.sendRedirect(request.getContextPath()+"/home");
 		}
 		else{
 			//request.setAttribute("categories", categoryService.findAll());
@@ -44,20 +56,30 @@ public class HomeController extends HttpServlet {
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String action = request.getParameter("action");
-//		if (action != null && action.equals("login")) {
-//			UserModel model = FormUtil.toModel(UserModel.class, request);
-//			model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(), model.getPassword(), 1);
-//			if (model != null) {
-//				SessionUtil.getInstance().putValue(request, "USERMODEL", model);
-//				if (model.getRole().getCode().equals("USER")) {
-//					response.sendRedirect(request.getContextPath()+"/trang-chu");
-//				} else if (model.getRole().getCode().equals("ADMIN")) {
-//					response.sendRedirect(request.getContextPath()+"/admin-home");
-//				}
-//			} else {
-//				response.sendRedirect(request.getContextPath()+"/dang-nhap?action=login&message=username_password_invalid&alert=danger");
-//			}
-//		}
+		String action = request.getParameter("action");
+
+		if(action !=null && action.equals("login")){
+			UserModel model = FormUtil.toModel(UserModel.class,request);
+
+			model = userService.findByUserNameAndPasswordAndStatus(model.getUserName(),model.getPassword(), 1);
+
+			System.out.println("model"+ model);
+			if(model != null){
+
+				SessionUtil.getInstance().putValue(request,"USERMODEL",model);
+
+				if(model.getRole().getCode().equals("USER")){
+					response.sendRedirect(request.getContextPath()+ "/home");
+				}
+				else if(model.getRole().getCode().equals("ADMIN")){
+					response.sendRedirect(request.getContextPath()+ "/admin-home");
+				}
+			}
+			else{
+				response.sendRedirect(request.getContextPath()+"/auth?action=login&message=username_password_invalid&alert=danger");
+			}
+		};
+
+
 	}
 }

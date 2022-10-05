@@ -10,7 +10,7 @@
 <body id="LoginForm">
 <div class="container">
     <div class="login-form">
-        <h1 class="heading-title mt-5">Login Form</h1>
+        <h1 class="heading-title mt-5"style="color:white">LOGIN FORM</h1>
         <div class="main-div">
             <c:if test="${not empty message}">
                 <div class="alert alert-${alert}">
@@ -19,7 +19,7 @@
             </c:if>
             <form action="<c:url value='/auth'/>" id="formLogin" method="post">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="userName" name="userName"
+                    <input type="text" class="form-control" id="username" name="userName"
                            placeholder="Enter your username">
                 </div>
 

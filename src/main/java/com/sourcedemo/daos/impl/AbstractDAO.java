@@ -6,6 +6,7 @@ import com.sourcedemo.mapper.RowMapper;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class AbstractDAO<T> implements GenericDAO<T> {
 
@@ -13,11 +14,19 @@ public class AbstractDAO<T> implements GenericDAO<T> {
     public Connection getConnection(){
 
 
+        // import file db.properties
+        ResourceBundle myResources = ResourceBundle.getBundle("db");
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+           /* Class.forName("com.mysql.jdbc.Driver");
             String DB_URL = "jdbc:mysql://localhost:3306/newservlet";
             String USER_NAME = "root";
             String PASSWORD = "123456";
+            */
+
+            Class.forName(myResources.getString("driverName"));
+            String DB_URL = myResources.getString("dbURL");
+            String USER_NAME = myResources.getString("userName");
+            String PASSWORD = myResources.getString("password");
             return DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
 
         } catch (ClassNotFoundException | SQLException e) {
