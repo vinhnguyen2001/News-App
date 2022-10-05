@@ -14,7 +14,7 @@ target/
 /.idea
 
 *mvn
-**/out/artifacts
+
 
 ### Eclipse ###
 .apt_generated
