@@ -11,10 +11,10 @@ target/
 *.iws
 *.iml
 *.ipr
-mvnw
+/.idea
 mvnw.cmd
 *.mvn
-.idea
+
 ### Eclipse ###
 .apt_generated
 .classpath
