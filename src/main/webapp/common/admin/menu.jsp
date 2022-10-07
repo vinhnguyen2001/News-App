@@ -44,7 +44,15 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li>
-                    <a href='<c:url value="/admin-new?type=list&page=1&maxPageItem=2&sortName=title&sortBy=desc"/>'>
+                    <c:url var="listArticleUrl" value="/admin-new">
+                        <c:param name="type" value="list"/>
+                        <c:param name="page" value="1"/>
+                        <c:param name="maxPageItem" value="2"/>
+                        <c:param name="sortName" value="title"/>
+                        <c:param name ="sortBy" value ="desc"/>
+
+                    </c:url>
+                    <a href='${listArticleUrl}'>
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS bài viết
                     </a>

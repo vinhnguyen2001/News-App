@@ -2,6 +2,13 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url var="APIurl" value="/api-admin-new"/>
 <c:url var ="NewURL" value="/admin-new"/>
+<c:url var="listArticleUrl" value="/admin-new">
+    <c:param name="type" value="list"/>
+    <c:param name="page" value="1"/>
+    <c:param name="maxPageItem" value="2"/>
+    <c:param name="sortName" value="title"/>
+    <c:param name ="sortBy" value ="desc"/>
+</c:url>
 <html>
 <head>
     <title>Chỉnh sửa bài viết</title>
@@ -15,8 +22,9 @@
             </script>
             <ul class="breadcrumb">
                 <li>
+
                     <i class="ace-icon fa fa-home home-icon"></i>
-                    <a href="#">Trang chủ </a>
+                    <a href="${listArticleUrl}">Trang chủ </a>
                 </li>
                 <li class="active">Chỉnh sửa bài viết</li>
             </ul><!-- /.breadcrumb -->
@@ -43,14 +51,20 @@
                                         <c:if test="${not empty model.categoryCode}">
                                             <option value="">Chọn loại bài viết</option>
                                             <c:forEach var="item" items="${categories}">
-                                                <option value="${item.code}" <c:if test="${item.code == model.categoryCode}">selected="selected"</c:if>>
+                                                <option value="${item.code}"
+                                                <c:if test ="${item.code == model.categoryCode}">
+                                                    selected = "selected"
+                                                </c:if>
+                                                >
                                                         ${item.name}
                                                 </option>
+
                                             </c:forEach>
                                         </c:if>
                                     </select>
                                 </div>
                             </div>
+                            <br/>
                             <br/>
                             <br/>
                             <div class="form-group">
@@ -80,7 +94,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right">Nội dung</label>
                                 <div class="col-sm-9">                                 
-                                    <textarea rows="" cols="" id="content" name="content" style="width: 820px;height: 175px">${model.content}</textarea>
+                                    <textarea style="width: 500px" rows="5" cols="100" id="content" name="content" style="width: 820px;height: 175px">${model.content}</textarea>
                                 </div>
                             </div>
                             <br/>
@@ -111,9 +125,10 @@
     $('#btnAddOrUpdateNew').click(function (e) {
         e.preventDefault();
         var data = {};
+        //  get all field.
         var formData = $('#formSubmit').serializeArray();
-        $.each(formData, function (i, v) {
-            data[""+v.name+""] = v.value;
+        $.each(formData, function (index, element) {
+            data[""+element.name+""] = element.value;
         });
         data["content"] = editor.getData();
         var id = $('#id').val();
@@ -123,21 +138,34 @@
             updateNew(data);
         }
     });
+
+
     function addNew(data) {
+
         $.ajax({
-            url: '${APIurl}',
-            type: 'POST',
+            url:'${APIurl}', // If URL is called directly, it will be failed such as url:"/api-admin-new.
+            type:'POST',
+            // define the data to be sent as JSON
             contentType: 'application/json',
-            data: JSON.stringify(data),
+            // convert data to json
+            data:JSON.stringify(data),
             dataType: 'json',
-            success: function (result) {
-            	window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=insert_success";
+            success: function(result){
+                // console.log("addnew:", result);
+                window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=insert_success";
+
             },
-            error: function (error) {
-            	window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
+            error: function(result){
+                console.error("addnew: ", result);
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
+
             }
         });
+
     }
+
+
+
     function updateNew(data) {
         $.ajax({
             url: '${APIurl}',
@@ -146,10 +174,12 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=update_success";
+                // console.log("addnew:", result);
+                window.location.href = "${NewURL}?type=edit&id="+result.id;//+"&message=update_success";
             },
             error: function (error) {
-            	window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
+                // console.error("addnew: ", error);
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1";//&message=error_system";
             }
         });
     }
