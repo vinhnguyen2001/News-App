@@ -21,3 +21,6 @@ servlet - filter.
 
 ObjectMapper
 BeanUtils.
+
+ckfinder. => load ảnh
+use: w-100 to scale image when responsive website.
