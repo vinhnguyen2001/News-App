@@ -2,7 +2,6 @@ package com.sourcedemo.daos.impl;
 
 import com.sourcedemo.daos.IUserDAO;
 import com.sourcedemo.mapper.UserMapper;
-import com.sourcedemo.models.AbstractModel;
 import com.sourcedemo.models.UserModel;
 
 import java.util.List;

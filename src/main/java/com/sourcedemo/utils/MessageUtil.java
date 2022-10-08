@@ -22,6 +22,7 @@ public class MessageUtil {
 				messageResponse = "Error system";
 				alert = "danger";
 			}
+
 			request.setAttribute("messageResponse", messageResponse);
 			request.setAttribute("alert", alert);
 		}

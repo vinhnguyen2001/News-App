@@ -151,12 +151,10 @@
             data:JSON.stringify(data),
             dataType: 'json',
             success: function(result){
-                // console.log("addnew:", result);
                 window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=insert_success";
 
             },
             error: function(result){
-                console.error("addnew: ", result);
                 window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
 
             }
@@ -174,12 +172,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-                // console.log("addnew:", result);
-                window.location.href = "${NewURL}?type=edit&id="+result.id;//+"&message=update_success";
+                window.location.href = "${NewURL}?type=edit&id="+result.id+"&message=update_success";
             },
             error: function (error) {
-                // console.error("addnew: ", error);
-                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1";//&message=error_system";
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
             }
         });
     }

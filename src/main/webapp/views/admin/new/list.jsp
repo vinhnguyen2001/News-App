@@ -27,6 +27,11 @@
             <div class="page-content">
                 <div class="row">
                     <div class="col-xs-12">
+                        <c:if test="${not empty messageResponse}">
+                            <div class="alert alert-${alert}">
+                                    ${messageResponse}
+                            </div>
+                        </c:if>
                         <div class="widget-box table-filter">
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
@@ -133,10 +138,10 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (result) {
-                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&sortName=title&sortBy=desc"; //&message=delete_success
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=delete_success";
             },
             error: function (error) {
-                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&sortName=title&sortBy=desc"; //&message=error_system
+                window.location.href = "${NewURL}?type=list&maxPageItem=2&page=1&message=error_system";
             }
         });
     }

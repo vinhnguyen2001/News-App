@@ -4,10 +4,8 @@ import com.sourcedemo.daos.INewDAO;
 import com.sourcedemo.mapper.NewMapper;
 import com.sourcedemo.models.NewModel;
 import com.sourcedemo.paging.Pageable;
-
-
+//import org.apache.commons.lang.StringUtils;
 import java.util.List;
-
 public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
     @Override
     public List<NewModel> findByCategoryId(Long categoryId) {
@@ -54,7 +52,11 @@ public class NewDAO extends AbstractDAO<NewModel> implements INewDAO {
 
         StringBuilder queryStr = new StringBuilder("SELECT * FROM news");
 
-        if(pageable.getSorter() != null){
+        if(pageable.getSorter() != null &&
+                !INewDAO.empty(pageable.getSorter().getSortBy())&&
+                !INewDAO.empty(pageable.getSorter().getSortName())
+        )
+        {
             queryStr.append(" ORDER BY " + pageable.getSorter().getSortName() + "  " + pageable.getSorter().getSortBy()+ " ");
         }
 

@@ -1,7 +1,7 @@
 package com.sourcedemo.controllers.admin;
 
+import com.mysql.cj.protocol.x.XMessage;
 import com.sourcedemo.constant.SystemConstant;
-import com.sourcedemo.models.CategoryModel;
 import com.sourcedemo.models.NewModel;
 import com.sourcedemo.paging.PageRequest;
 import com.sourcedemo.paging.Pageable;
@@ -9,6 +9,7 @@ import com.sourcedemo.services.ICategoryService;
 import com.sourcedemo.services.INewService;
 import com.sourcedemo.sort.Sorter;
 import com.sourcedemo.utils.FormUtil;
+import com.sourcedemo.utils.MessageUtil;
 
 import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
@@ -18,8 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ResourceBundle;
 
 
 @WebServlet(urlPatterns = {"/admin-new"})
@@ -35,11 +35,15 @@ public class NewController extends HttpServlet {
     @Inject
     private ICategoryService categoryService;
 
+    ResourceBundle resourceBundle = ResourceBundle.getBundle("message");
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // get parameters from client and switch it to map with model class equivalent to them.
         NewModel model = FormUtil.toModel(NewModel.class,request);
         String view = "";
+
         if(model.getType().equals(SystemConstant.LIST)){
             // In case: return list of news.
             // encapsulates the parameters into  a particular object.
@@ -55,16 +59,15 @@ public class NewController extends HttpServlet {
 
             if(model.getId()!=null){
                 model = newService.findOne(model.getId());
-            } else{
-
             }
-
 
             view ="/views/admin/new/edit.jsp";
             request.setAttribute("categories",categoryService.findAll());
         }
 
+        MessageUtil.showMessage(request);
         request.setAttribute(SystemConstant.MODEL, model);
+
         RequestDispatcher rd = request.getRequestDispatcher(view);
         rd.forward(request, response);
     }

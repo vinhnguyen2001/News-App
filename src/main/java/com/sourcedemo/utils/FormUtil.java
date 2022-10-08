@@ -1,10 +1,9 @@
 package com.sourcedemo.utils;
 
-import java.lang.reflect.InvocationTargetException;
+import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.beanutils.BeanUtils;
+import java.lang.reflect.InvocationTargetException;
 
 public class FormUtil {
 	

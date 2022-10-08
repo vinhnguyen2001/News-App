@@ -1,11 +1,10 @@
 package com.sourcedemo.services.impl;
 
 import com.sourcedemo.daos.IUserDAO;
-import com.sourcedemo.daos.impl.UserDAO;
 import com.sourcedemo.models.UserModel;
 import com.sourcedemo.services.IUserService;
+
 import javax.inject.Inject;
-import java.util.List;
 
 public class UserService implements IUserService {
 

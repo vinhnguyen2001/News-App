@@ -13,4 +13,9 @@ public interface INewDAO extends GenericDAO<NewModel> {
     void delete(long id);
     List<NewModel> findAll(Pageable pageable);
     int getTotalItem();
+
+
+    public static boolean empty(final String s) {
+        return s == null || s.trim().isEmpty();
+    }
 }
