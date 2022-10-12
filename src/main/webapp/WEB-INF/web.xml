@@ -18,6 +18,8 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+
+<!--FILTER-->
 <!--    filter use's permission-->
     <filter>
         <filter-name>servletFilter</filter-name>
@@ -27,7 +29,7 @@
         <filter-name>servletFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
+<!--END FILTER-->
     <session-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>

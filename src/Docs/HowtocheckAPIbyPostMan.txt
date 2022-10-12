@@ -1,0 +1,28 @@
+
+Let's do the following steps:
+
+Step 1: Open file NewAPI of controllers/admin/API and comment rows have this code:"newModel.setCreatedBy"
+Step 2: Insert below that code is this code "newModel.setCreatedBy("admin")" into that file.
+Step 3: Set data that will be transferred to the server to JSON type in Postman.
+Step 4: Copy and paste this code into the body of the data JSON in Postman:
+{
+    "title":"Bài viết 5",
+    "thumbnail":"",
+    "shortDescription":"Bài viết 5",
+    "content":"Bài viết 5",
+    "categoryCode":"the-thao",
+    "createdBy":"admin"
+}
+
+Step 5: Open file web.xml of the directory is WEB-INF of webapp directory.
+Comment the following code:
+<!--    <filter>-->
+<!--        <filter-name>servletFilter</filter-name>-->
+<!--        <filter-class>com.sourcedemo.filter.AuthorizationFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>servletFilter</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
+
+If you received JSON data which returned from server, we already have success.

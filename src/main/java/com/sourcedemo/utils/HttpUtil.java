@@ -16,6 +16,7 @@ public class HttpUtil {
 //	convert string to the corresponding object
 	public <T> T toModel(Class<T> tClass) {
 		try {
+			// ObjectMapper convert a JSON String to a JavaObject
 			return new ObjectMapper().readValue(value, tClass);
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
